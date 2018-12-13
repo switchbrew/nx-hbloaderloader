@@ -118,6 +118,8 @@ else
 	export APP_ICON := $(TOPDIR)/$(ICON)
 endif
 
+export APP_JSON=$(TOPDIR)/nxldrldr.json
+
 ifeq ($(strip $(NO_ICON)),)
 	export NROFLAGS += --icon=$(APP_ICON)
 endif
@@ -154,13 +156,12 @@ DEPENDS	:=	$(OFILES:.o=.d)
 #---------------------------------------------------------------------------------
 # main targets
 #---------------------------------------------------------------------------------
-all	:	$(OUTPUT).pfs0 $(OUTPUT).nro $(OUTPUT).kip
+all	:	$(OUTPUT).pfs0 $(OUTPUT).kip
 
 $(OUTPUT).pfs0	:	$(OUTPUT).nso
 
 $(OUTPUT).nso	:	$(OUTPUT).elf
 $(OUTPUT).kip	:	$(OUTPUT).elf
-	elf2kip $(OUTPUT).elf $(CURDIR)/../nxldrldr.json $(OUTPUT).kip
 
 ifeq ($(strip $(NO_NACP)),)
 $(OUTPUT).nro	:	$(OUTPUT).elf $(OUTPUT).nacp
